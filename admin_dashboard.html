@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Green Haven — Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css">
+<style>
+:root{
+  --forest:#2E7D32; --forest-dark:#1F5A24; --sage:#66BB6A; --marigold:#FFB74D;
+  --cream:#F8FFF8; --paper:#FFFFFF; --ink:#1B1B1B; --ink-soft:#5B6660;
+  --deep:#0E2A16; --line:#E7EFE6; --danger:#C6564B; --info:#3A7CA5;
+  --sidebar-w:250px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:'Manrope',sans-serif; background:var(--cream); color:var(--ink);}
+h1,h2,h3,h4{font-family:'Fraunces',serif; font-weight:600; color:var(--deep);}
+.mono{font-family:'JetBrains Mono',monospace;}
+a{text-decoration:none; color:inherit;}
+button{font-family:inherit; cursor:pointer; border:none; background:none;}
+
+.layout{display:flex; min-height:100vh;}
+
+/* ---------- Sidebar ---------- */
+.sidebar{
+  width:var(--sidebar-w); background:var(--deep); color:#B9CCB9; flex-shrink:0;
+  display:flex; flex-direction:column; padding:26px 18px; position:fixed; top:0; bottom:0; left:0;
+  transition:transform .3s ease; z-index:200;
+}
+.sidebar-brand{display:flex; align-items:center; gap:10px; padding:0 10px 26px; color:#fff; font-family:'Fraunces',serif; font-weight:600; font-size:1.15rem; border-bottom:1px solid rgba(255,255,255,0.08); margin-bottom:20px;}
+.sidebar-brand i{color:var(--marigold); font-size:1.4rem;}
+.nav-group{margin-bottom:6px;}
+.nav-label{font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:#6E8471; padding:14px 12px 8px; font-weight:700;}
+.snav{display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:12px; font-size:0.88rem; font-weight:600; color:#B9CCB9; transition:all .2s ease; margin-bottom:2px;}
+.snav i{font-size:1.15rem;}
+.snav:hover{background:rgba(255,255,255,0.06); color:#fff;}
+.snav.active{background:var(--forest); color:#fff;}
+.sidebar-foot{margin-top:auto; padding-top:16px; border-top:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; gap:10px;}
+.sidebar-foot .avatar{width:38px; height:38px; border-radius:50%; background:linear-gradient(140deg,var(--sage),var(--forest)); display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Fraunces',serif; font-weight:600;}
+.sidebar-foot b{display:block; font-size:0.84rem; color:#fff;}
+.sidebar-foot span{font-size:0.72rem; color:#8CA48E;}
+
+/* ---------- Main ---------- */
+.main{margin-left:var(--sidebar-w); flex:1; min-width:0;}
+.topbar{
+  background:var(--paper); border-bottom:1px solid var(--line); padding:18px 32px;
+  display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100;
+}
+.topbar h1{font-size:1.35rem;}
+.topbar .sub{font-size:0.82rem; color:var(--ink-soft); font-weight:500; margin-top:2px;}
+.topbar-actions{display:flex; gap:14px; align-items:center;}
+.search-box{display:flex; align-items:center; gap:8px; background:var(--cream); border:1px solid var(--line); border-radius:100px; padding:9px 16px; width:260px;}
+.search-box input{border:none; background:none; outline:none; font-size:0.86rem; width:100%;}
+.icon-btn{width:40px; height:40px; border-radius:12px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:var(--ink-soft); position:relative;}
+.icon-btn .dot{position:absolute; top:8px; right:8px; width:7px; height:7px; border-radius:50%; background:var(--danger);}
+.menu-toggle-mobile{display:none;}
+
+.content{padding:28px 32px 60px;}
+
+/* ---------- Stat cards ---------- */
+.stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-bottom:28px;}
+.stat-card{background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:22px 24px; position:relative; overflow:hidden;}
+.stat-card .icon{width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:14px;}
+.stat-card .val{font-family:'Fraunces',serif; font-size:1.9rem; font-weight:600; color:var(--deep);}
+.stat-card .lbl{font-size:0.82rem; color:var(--ink-soft); font-weight:600; margin-top:2px;}
+.stat-card .delta{position:absolute; top:22px; right:22px; font-size:0.76rem; font-weight:700; padding:4px 9px; border-radius:100px;}
+.delta.up{background:rgba(46,125,50,0.12); color:var(--forest-dark);}
+.delta.down{background:rgba(198,86,75,0.12); color:var(--danger);}
+.c-today .icon{background:rgba(46,125,50,0.12); color:var(--forest);}
+.c-pending .icon{background:rgba(255,183,77,0.18); color:#B4770F;}
+.c-confirmed .icon{background:rgba(58,124,165,0.14); color:var(--info);}
+.c-completed .icon{background:rgba(102,187,106,0.16); color:var(--forest-dark);}
+
+/* ---------- Grid layout ---------- */
+.dash-grid{display:grid; grid-template-columns:1.5fr 1fr; gap:20px; margin-bottom:20px;}
+.panel{background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:24px;}
+.panel-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;}
+.panel-head h3{font-size:1.05rem;}
+.panel-head .tabs{display:flex; gap:6px; background:var(--cream); border-radius:100px; padding:4px;}
+.panel-head .tabs button{padding:6px 14px; border-radius:100px; font-size:0.78rem; font-weight:700; color:var(--ink-soft);}
+.panel-head .tabs button.active{background:var(--forest); color:#fff;}
+.link-more{font-size:0.82rem; font-weight:700; color:var(--forest); display:flex; align-items:center; gap:4px;}
+
+/* Revenue chart (css bars) */
+.chart-wrap{display:flex; align-items:flex-end; gap:10px; height:200px; padding-top:10px;}
+.bar-col{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; gap:8px;}
+.bar{width:100%; max-width:34px; border-radius:8px 8px 4px 4px; background:linear-gradient(180deg, var(--sage), var(--forest)); position:relative; transition:transform .2s ease; cursor:pointer;}
+.bar:hover{transform:scaleY(1.02); filter:brightness(1.06);}
+.bar-col.today .bar{background:linear-gradient(180deg, var(--marigold), #E8983F);}
+.bar-col span{font-size:0.68rem; color:var(--ink-soft); font-weight:700;}
+.chart-total{display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:6px;}
+.chart-total .amt{font-family:'Fraunces',serif; font-size:2rem; color:var(--deep);}
+.chart-total .amt span{font-size:0.9rem; color:var(--forest); font-family:'Manrope',sans-serif; font-weight:700;}
+
+/* Recent bookings table */
+.table-wrap{overflow-x:auto;}
+table{width:100%; border-collapse:collapse;}
+th{text-align:left; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft); padding:10px 12px; border-bottom:1px solid var(--line);}
+td{padding:14px 12px; font-size:0.86rem; border-bottom:1px solid var(--line);}
+tr:last-child td{border-bottom:none;}
+.cust-cell{display:flex; align-items:center; gap:10px;}
+.cust-cell .avatar{width:34px; height:34px; border-radius:50%; background:linear-gradient(140deg,var(--sage),var(--forest)); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-size:0.85rem; font-weight:600;}
+.status-pill{display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:100px; font-size:0.72rem; font-weight:700;}
+.status-pill.pending{background:rgba(255,183,77,0.18); color:#96650B;}
+.status-pill.confirmed{background:rgba(46,125,50,0.12); color:var(--forest-dark);}
+.status-pill.completed{background:rgba(58,124,165,0.14); color:var(--info);}
+.status-pill.cancelled{background:rgba(198,86,75,0.12); color:var(--danger);}
+.status-pill.rejected{background:rgba(120,120,120,0.14); color:#666;}
+.ref{font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--ink-soft);}
+.row-actions{display:flex; gap:6px;}
+.row-actions button{width:30px; height:30px; border-radius:8px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--ink-soft); transition:all .2s ease;}
+.row-actions button:hover{background:var(--forest); color:#fff; border-color:var(--forest);}
+
+/* Calendar */
+.cal-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
+.cal-head button{width:32px; height:32px; border-radius:8px; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--ink-soft);}
+.cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:6px;}
+.cal-dow{text-align:center; font-size:0.68rem; font-weight:700; color:var(--ink-soft); padding-bottom:6px; text-transform:uppercase;}
+.cal-day{
+  aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  border-radius:10px; font-size:0.8rem; font-weight:600; color:var(--ink); cursor:pointer; position:relative;
+  transition:all .15s ease;
+}
+.cal-day:hover{background:var(--cream);}
+.cal-day.muted{color:#C9D4C9;}
+.cal-day .mark{width:5px; height:5px; border-radius:50%; margin-top:3px;}
+.cal-day.booked{background:rgba(46,125,50,0.1);}
+.cal-day.booked .mark{background:var(--forest);}
+.cal-day.pending-day{background:rgba(255,183,77,0.14);}
+.cal-day.pending-day .mark{background:var(--marigold);}
+.cal-day.today-mark{outline:2px solid var(--forest); outline-offset:-2px;}
+.cal-legend{display:flex; gap:16px; margin-top:16px; flex-wrap:wrap;}
+.cal-legend span{display:flex; align-items:center; gap:6px; font-size:0.76rem; color:var(--ink-soft);}
+.cal-legend i{width:8px; height:8px; border-radius:50%; display:inline-block;}
+
+/* Package management preview */
+.pkg-mini{display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--line);}
+.pkg-mini:last-child{border-bottom:none;}
+.pkg-mini-left{display:flex; align-items:center; gap:12px;}
+.pkg-mini .swatch{width:44px; height:44px; border-radius:10px; background:linear-gradient(150deg,var(--sage),var(--forest)); display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.1rem;}
+.pkg-mini b{font-size:0.86rem; display:block;}
+.pkg-mini span{font-size:0.76rem; color:var(--ink-soft);}
+.pkg-mini .price{font-family:'JetBrains Mono',monospace; font-size:0.86rem; font-weight:600; color:var(--forest-dark);}
+
+.bottom-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+
+@media (max-width: 1080px){
+  .dash-grid, .stat-grid, .bottom-grid{grid-template-columns:1fr;}
+}
+@media (max-width: 860px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;}
+  .menu-toggle-mobile{display:flex; width:40px; height:40px; align-items:center; justify-content:center; border:1px solid var(--line); border-radius:10px; font-size:1.2rem;}
+  .search-box{display:none;}
+  .stat-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand"><i class='bx bxs-leaf'></i> Green Haven</div>
+    <div class="nav-group">
+      <div class="nav-label">Overview</div>
+      <a class="snav active"><i class='bx bxs-dashboard'></i> Dashboard</a>
+      <a class="snav"><i class='bx bx-calendar'></i> Calendar</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Manage</div>
+      <a class="snav"><i class='bx bx-book-bookmark'></i> Bookings</a>
+      <a class="snav"><i class='bx bx-package'></i> Packages</a>
+      <a class="snav"><i class='bx bx-images'></i> Gallery</a>
+      <a class="snav"><i class='bx bx-star'></i> Testimonials</a>
+      <a class="snav"><i class='bx bx-user'></i> Customers</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">System</div>
+      <a class="snav"><i class='bx bx-bell'></i> Notifications</a>
+      <a class="snav"><i class='bx bx-cog'></i> Settings</a>
+    </div>
+    <div class="sidebar-foot">
+      <div class="avatar">A</div>
+      <div><b>Amara N.</b><span>Manager</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <button class="menu-toggle-mobile" onclick="document.getElementById('sidebar').classList.toggle('open')"><i class='bx bx-menu'></i></button>
+        <div>
+          <h1>Good morning, Amara</h1>
+          <div class="sub">Friday, August 7 — here's what's happening at the garden today.</div>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <div class="search-box"><i class='bx bx-search'></i><input placeholder="Search bookings, customers..."></div>
+        <div class="icon-btn"><i class='bx bx-bell'></i><span class="dot"></span></div>
+        <div class="icon-btn"><i class='bx bx-envelope'></i></div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="stat-grid">
+        <div class="stat-card c-today">
+          <div class="delta up">+2 vs yesterday</div>
+          <div class="icon"><i class='bx bx-calendar-check'></i></div>
+          <div class="val">8</div>
+          <div class="lbl">Today's Bookings</div>
+        </div>
+        <div class="stat-card c-pending">
+          <div class="delta down">Needs review</div>
+          <div class="icon"><i class='bx bx-time-five'></i></div>
+          <div class="val">5</div>
+          <div class="lbl">Pending Approval</div>
+        </div>
+        <div class="stat-card c-confirmed">
+          <div class="delta up">+4 this week</div>
+          <div class="icon"><i class='bx bx-badge-check'></i></div>
+          <div class="val">17</div>
+          <div class="lbl">Confirmed Upcoming</div>
+        </div>
+        <div class="stat-card c-completed">
+          <div class="delta up">96 total</div>
+          <div class="icon"><i class='bx bx-party'></i></div>
+          <div class="val">96</div>
+          <div class="lbl">Completed Events</div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h3>Revenue This Month</h3>
+            </div>
+            <div class="tabs">
+              <button class="active">Week</button>
+              <button>Month</button>
+              <button>Year</button>
+            </div>
+          </div>
+          <div class="chart-total">
+            <div class="amt">KES 184,500 <span>▲ 12.4% vs last month</span></div>
+          </div>
+          <div class="chart-wrap" id="chartWrap"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Booking Calendar</h3>
+            <div class="cal-head" style="margin:0;">
+              <button><i class='bx bx-chevron-left'></i></button>
+              <span style="font-size:0.86rem; font-weight:700;">August 2026</span>
+              <button><i class='bx bx-chevron-right'></i></button>
+            </div>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="cal-legend">
+            <span><i style="background:var(--forest)"></i> Booked</span>
+            <span><i style="background:var(--marigold)"></i> Pending</span>
+            <span><i style="background:#C9D4C9"></i> Available</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-bottom:20px;">
+        <div class="panel-head">
+          <h3>Recent Bookings</h3>
+          <a class="link-more">View all <i class='bx bx-right-arrow-alt'></i></a>
+        </div>
+        <div class="table-wrap">
+          <table id="bookingsTable"></table>
+        </div>
+      </div>
+
+      <div class="bottom-grid">
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Top Packages</h3>
+            <a class="link-more">Manage <i class='bx bx-right-arrow-alt'></i></a>
+          </div>
+          <div id="pkgMiniList"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Recent Customers</h3>
+            <a class="link-more">View all <i class='bx bx-right-arrow-alt'></i></a>
+          </div>
+          <div id="custMiniList"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+/* ---------------- Revenue chart ---------------- */
+const revenueDays = [
+  {d:'Mon', v:18000},{d:'Tue', v:22500},{d:'Wed', v:15800},{d:'Thu', v:31200},
+  {d:'Fri', v:42600},{d:'Sat', v:61000, today:true},{d:'Sun', v:48000},
+];
+const max = Math.max(...revenueDays.map(r=>r.v));
+document.getElementById('chartWrap').innerHTML = revenueDays.map(r => `
+  <div class="bar-col ${r.today?'today':''}">
+    <div class="bar" style="height:${(r.v/max*100)}%;" title="KES ${r.v.toLocaleString()}"></div>
+    <span>${r.d}</span>
+  </div>
+`).join('');
+
+/* ---------------- Calendar ---------------- */
+const calGrid = document.getElementById('calGrid');
+const dows = ['S','M','T','W','T','F','S'];
+let calHtml = dows.map(d=>`<div class="cal-dow">${d}</div>`).join('');
+const bookedDays = [3,8,11,14,17,22,26,29];
+const pendingDays = [5,12,19,24];
+const startOffset = 5; // Aug 1 2026 = Saturday
+for(let i=0;i<startOffset;i++) calHtml += `<div class="cal-day muted"></div>`;
+for(let day=1; day<=31; day++){
+  let cls = 'cal-day';
+  if(bookedDays.includes(day)) cls += ' booked';
+  else if(pendingDays.includes(day)) cls += ' pending-day';
+  if(day===7) cls += ' today-mark';
+  const showMark = bookedDays.includes(day) || pendingDays.includes(day);
+  calHtml += `<div class="${cls}">${day}${showMark?'<div class="mark"></div>':''}</div>`;
+}
+calGrid.innerHTML = calHtml;
+
+/* ---------------- Recent bookings table ---------------- */
+const bookings = [
+  {ref:'PG-7K2N9X', name:'Jane Mwangi', event:'Birthday Party', date:'Aug 14', status:'pending'},
+  {ref:'PG-3B8QW1', name:'Brian Otieno', event:'Proposal Setup', date:'Aug 17', status:'confirmed'},
+  {ref:'PG-9M4RTZ', name:'Mercy Kariuki', event:'Family Picnic', date:'Aug 22', status:'completed'},
+  {ref:'PG-1L6XCA', name:'David Kimani', event:'Corporate Event', date:'Aug 19', status:'confirmed'},
+  {ref:'PG-5P0VDF', name:'Amina Hassan', event:'Baby Shower', date:'Aug 24', status:'pending'},
+  {ref:'PG-2H7YKS', name:'Peter Njoroge', event:'Graduation Party', date:'Aug 12', status:'cancelled'},
+  {ref:'PG-8T3JQE', name:'Grace Wambui', event:'Romantic Picnic', date:'Aug 9', status:'completed'},
+];
+const table = document.getElementById('bookingsTable');
+table.innerHTML = `
+  <thead><tr><th>Reference</th><th>Customer</th><th>Event</th><th>Date</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  ${bookings.map(b => `
+    <tr>
+      <td class="ref">${b.ref}</td>
+      <td><div class="cust-cell"><div class="avatar">${b.name.charAt(0)}</div>${b.name}</div></td>
+      <td>${b.event}</td>
+      <td>${b.date}</td>
+      <td><span class="status-pill ${b.status}">${b.status.charAt(0).toUpperCase()+b.status.slice(1)}</span></td>
+      <td><div class="row-actions">
+        <button title="Approve"><i class='bx bx-check'></i></button>
+        <button title="View"><i class='bx bx-show'></i></button>
+        <button title="More"><i class='bx bx-dots-horizontal-rounded'></i></button>
+      </div></td>
+    </tr>
+  `).join('')}
+  </tbody>
+`;
+
+/* ---------------- Top packages ---------------- */
+const topPackages = [
+  {name:'Family Fun', bookings:34, price:12000, icon:'bx-home-heart'},
+  {name:'Romantic Escape', bookings:28, price:6500, icon:'bx-heart'},
+  {name:'Bloom Birthday', bookings:19, price:15000, icon:'bx-cake'},
+  {name:'Corporate Retreat', bookings:9, price:35000, icon:'bx-briefcase'},
+];
+document.getElementById('pkgMiniList').innerHTML = topPackages.map(p => `
+  <div class="pkg-mini">
+    <div class="pkg-mini-left">
+      <div class="swatch"><i class='bx ${p.icon}'></i></div>
+      <div><b>${p.name}</b><span>${p.bookings} bookings this month</span></div>
+    </div>
+    <div class="price">KES ${p.price.toLocaleString()}</div>
+  </div>
+`).join('');
+
+/* ---------------- Recent customers ---------------- */
+const customers = [
+  {name:'Jane Mwangi', phone:'+254 712 000 111', bookings:2},
+  {name:'Brian Otieno', phone:'+254 722 000 222', bookings:1},
+  {name:'Mercy Kariuki', phone:'+254 733 000 333', bookings:4},
+  {name:'David Kimani', phone:'+254 700 000 444', bookings:1},
+];
+document.getElementById('custMiniList').innerHTML = customers.map(c => `
+  <div class="pkg-mini">
+    <div class="pkg-mini-left">
+      <div class="swatch" style="background:linear-gradient(150deg,var(--marigold),#E8983F);">${c.name.charAt(0)}</div>
+      <div><b>${c.name}</b><span>${c.phone}</span></div>
+    </div>
+    <div class="price">${c.bookings} bookings</div>
+  </div>
+`).join('');
+</script>
+</body>
+</html>

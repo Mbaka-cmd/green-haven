@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Green Haven Picnic Gardens — Where Every Gathering Becomes a Memory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css">
+<style>
+:root{
+  --forest:#2E7D32;
+  --forest-dark:#1F5A24;
+  --sage:#66BB6A;
+  --marigold:#FFB74D;
+  --cream:#F8FFF8;
+  --paper:#FFFDF6;
+  --ink:#1B1B1B;
+  --ink-soft:#4A5750;
+  --deep:#0E2A16;
+  --line:#DCE8DC;
+  --shadow: 0 20px 50px -20px rgba(14,42,22,0.25);
+  --radius: 22px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Manrope', sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+}
+h1,h2,h3,h4{font-family:'Fraunces', serif; font-weight:600; color:var(--deep); letter-spacing:-0.01em;}
+.mono{font-family:'JetBrains Mono', monospace;}
+a{text-decoration:none; color:inherit;}
+.container{max-width:1200px; margin:0 auto; padding:0 32px;}
+img,button,input,select,textarea{font-family:inherit;}
+button{cursor:pointer; border:none; background:none;}
+
+/* ---------- Leaf vein divider (signature element) ---------- */
+.leaf-divider{width:100%; height:34px; display:flex; align-items:center; justify-content:center; opacity:0.55;}
+.leaf-divider svg{width:220px; height:20px;}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  background:rgba(248,255,248,0.82);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(46,125,50,0.08);
+  transition:box-shadow .3s ease;
+}
+.nav.scrolled{box-shadow:0 8px 30px -18px rgba(14,42,22,0.35);}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; padding:16px 32px; max-width:1200px; margin:0 auto;}
+.brand{display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-weight:600; font-size:1.3rem; color:var(--forest-dark);}
+.brand i{font-size:1.5rem; color:var(--marigold);}
+.nav-links{display:flex; gap:30px; align-items:center;}
+.nav-links a{font-size:0.92rem; font-weight:600; color:var(--ink-soft); position:relative; padding:4px 0;}
+.nav-links a::after{content:'';position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--marigold); transition:width .25s ease;}
+.nav-links a:hover::after{width:100%;}
+.nav-links a:hover{color:var(--forest-dark);}
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:13px 26px; border-radius:100px; font-weight:700; font-size:0.9rem;
+  transition:transform .25s cubic-bezier(.2,.9,.3,1.3), box-shadow .25s ease, background .25s ease;
+}
+.btn-primary{background:var(--forest); color:#fff; box-shadow:0 10px 24px -10px rgba(46,125,50,0.6);}
+.btn-primary:hover{transform:translateY(-3px); box-shadow:0 16px 30px -10px rgba(46,125,50,0.7); background:var(--forest-dark);}
+.btn-ghost{background:transparent; color:var(--forest-dark); border:1.5px solid var(--forest); }
+.btn-ghost:hover{background:rgba(46,125,50,0.08); transform:translateY(-2px);}
+.btn-marigold{background:var(--marigold); color:#3A2200; box-shadow:0 10px 24px -10px rgba(255,183,77,0.7);}
+.btn-marigold:hover{transform:translateY(-3px); box-shadow:0 16px 30px -10px rgba(255,183,77,0.85);}
+.menu-toggle{display:none; font-size:1.6rem; color:var(--forest-dark);}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative; min-height:100vh; display:flex; align-items:center;
+  padding:140px 0 100px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(102,187,106,0.25), transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(255,183,77,0.18), transparent 40%),
+    linear-gradient(180deg, #F8FFF8 0%, #EFF9EE 100%);
+  overflow:hidden;
+}
+.hero::before{
+  content:''; position:absolute; inset:0; opacity:0.5; pointer-events:none;
+  background-image: radial-gradient(rgba(46,125,50,0.06) 1px, transparent 1px);
+  background-size:22px 22px;
+}
+.hero-blob{position:absolute; border-radius:50%; filter:blur(2px); opacity:0.5; z-index:0;}
+.hero-inner{position:relative; z-index:2; display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center;}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px; padding:8px 16px;
+  background:rgba(255,183,77,0.18); color:#8A5A0A; border-radius:100px;
+  font-size:0.78rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; margin-bottom:22px;
+}
+.eyebrow i{color:var(--marigold);}
+.hero h1{font-size:clamp(2.6rem, 5vw, 4.4rem); line-height:1.04; margin-bottom:22px;}
+.hero h1 em{font-style:italic; color:var(--forest);}
+.hero p.lead{font-size:1.15rem; color:var(--ink-soft); max-width:520px; margin-bottom:34px;}
+.hero-ctas{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:46px;}
+.hero-stats{display:flex; gap:36px; flex-wrap:wrap;}
+.stat b{font-family:'Fraunces',serif; font-size:1.9rem; color:var(--forest-dark); display:block;}
+.stat span{font-size:0.82rem; color:var(--ink-soft); font-weight:600;}
+
+.hero-visual{position:relative; height:520px;}
+.hero-card{
+  position:absolute; border-radius:var(--radius); background:var(--paper);
+  box-shadow:var(--shadow); overflow:hidden; border:1px solid var(--line);
+}
+.card-main{width:82%; height:78%; top:0; right:0;
+  background:
+    linear-gradient(160deg, rgba(46,125,50,0.55), rgba(14,42,22,0.75)),
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 26px);
+  display:flex; align-items:flex-end; padding:26px; color:#fff;
+}
+.card-main .tag{background:rgba(255,255,255,0.18); backdrop-filter:blur(6px); padding:8px 14px; border-radius:100px; font-size:0.78rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;}
+.card-float{
+  bottom:0; left:0; width:60%; padding:20px 22px; display:flex; gap:14px; align-items:center;
+  animation:floaty 5s ease-in-out infinite;
+}
+@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.card-float .icon{width:44px; height:44px; border-radius:14px; background:var(--marigold); display:flex; align-items:center; justify-content:center; color:#3A2200; font-size:1.3rem; flex-shrink:0;}
+.card-float b{display:block; font-size:1.05rem; color:var(--deep);}
+.card-float span{font-size:0.78rem; color:var(--ink-soft);}
+.card-badge{
+  top:26px; left:-18px; padding:14px 18px; display:flex; align-items:center; gap:10px;
+  transform:rotate(-6deg);
+}
+.card-badge .stars{color:var(--marigold); font-size:0.9rem;}
+.card-badge b{font-family:'Fraunces',serif; font-size:1.1rem;}
+
+/* ---------- Section shell ---------- */
+.section{padding:110px 0;}
+.section-tight{padding:70px 0;}
+.section-head{max-width:640px; margin:0 auto 60px; text-align:center;}
+.section-head.left{margin:0 0 50px; text-align:left;}
+.section-eyebrow{font-size:0.8rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--forest); margin-bottom:14px; display:block;}
+.section-head h2{font-size:clamp(1.9rem,3.4vw,2.9rem); margin-bottom:16px;}
+.section-head p{color:var(--ink-soft); font-size:1.05rem;}
+.on-deep{background:var(--deep); color:#EAF3EA;}
+.on-deep h2, .on-deep h3, .on-deep h4{color:#fff;}
+.on-deep .section-head p{color:#B9CCB9;}
+.on-cream-alt{background:#F1F8F0;}
+
+/* ---------- About ---------- */
+.about-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:70px; align-items:center;}
+.about-visual{position:relative; height:440px;}
+.about-panel{position:absolute; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);}
+.panel-a{width:70%; height:80%; top:0; left:0; background:linear-gradient(150deg, var(--sage), var(--forest));}
+.panel-b{width:55%; height:50%; bottom:0; right:0; background:linear-gradient(150deg, var(--marigold), #E8983F); display:flex; align-items:center; justify-content:center; color:#3A2200;}
+.panel-b .big-num{font-family:'Fraunces',serif; font-size:3.2rem; font-weight:600;}
+.about-copy h2{margin-bottom:20px;}
+.about-copy p{color:var(--ink-soft); margin-bottom:18px;}
+.values{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:34px;}
+.value-item{display:flex; gap:14px; align-items:flex-start;}
+.value-item i{font-size:1.4rem; color:var(--forest); margin-top:2px;}
+.value-item b{display:block; font-family:'Fraunces',serif; font-size:1.02rem; margin-bottom:2px;}
+.value-item span{font-size:0.88rem; color:var(--ink-soft);}
+
+/* ---------- Packages: ticket-stub signature cards ---------- */
+.packages-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:30px;}
+.ticket{
+  position:relative; background:var(--paper); border-radius:18px;
+  box-shadow:0 16px 40px -22px rgba(14,42,22,0.35); border:1px solid var(--line);
+  overflow:visible; transition:transform .3s ease, box-shadow .3s ease;
+  display:flex; flex-direction:column;
+}
+.ticket:hover{transform:translateY(-8px); box-shadow:0 26px 50px -20px rgba(14,42,22,0.45);}
+.ticket.featured{border:2px solid var(--marigold);}
+.ticket-head{
+  padding:26px 26px 22px; background:linear-gradient(150deg, var(--forest), var(--forest-dark)); color:#fff;
+  border-radius:18px 18px 0 0; position:relative;
+}
+.ticket-head .stamp{
+  position:absolute; top:18px; right:18px; border:1.5px dashed rgba(255,255,255,0.6);
+  border-radius:50%; width:56px; height:56px; display:flex; align-items:center; justify-content:center;
+  font-size:0.62rem; font-weight:800; text-transform:uppercase; letter-spacing:0.03em; text-align:center;
+  transform:rotate(8deg); line-height:1.1;
+}
+.ticket-head .event-type{font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; opacity:0.85; margin-bottom:8px;}
+.ticket-head h3{color:#fff; font-size:1.4rem; margin-bottom:10px;}
+.ticket-price{font-family:'JetBrains Mono',monospace; font-size:1.7rem; font-weight:600;}
+.ticket-price span{font-size:0.72rem; opacity:0.8; font-family:'Manrope',sans-serif; font-weight:600;}
+.ticket-perf{
+  height:22px; position:relative; background:var(--paper);
+  background-image: radial-gradient(circle 7px, var(--cream) 7px, transparent 7.5px);
+  background-size:26px 22px; background-position:13px -11px; background-repeat:repeat-x;
+}
+.ticket-perf::before, .ticket-perf::after{
+  content:''; position:absolute; top:0; width:22px; height:22px; background:var(--cream); border-radius:50%;
+}
+.ticket-perf::before{left:-11px;} .ticket-perf::after{right:-11px;}
+.ticket-body{padding:22px 26px 28px; flex:1; display:flex; flex-direction:column;}
+.ticket-body p.desc{color:var(--ink-soft); font-size:0.92rem; margin-bottom:16px;}
+.ticket-body ul{list-style:none; margin-bottom:22px; flex:1;}
+.ticket-body li{display:flex; gap:10px; align-items:flex-start; font-size:0.9rem; padding:5px 0; color:var(--ink);}
+.ticket-body li i{color:var(--sage); font-size:1.05rem; margin-top:1px;}
+.ticket-meta{display:flex; gap:16px; margin-bottom:18px; font-size:0.8rem; color:var(--ink-soft);}
+.ticket-meta span{display:flex; align-items:center; gap:5px;}
+.ticket-cta{width:100%; padding:13px; border-radius:100px; background:var(--cream); color:var(--forest-dark); font-weight:700; border:1.5px solid var(--forest); transition:all .25s ease;}
+.ticket-cta:hover{background:var(--forest); color:#fff;}
+.ticket.featured .ticket-cta{background:var(--marigold); color:#3A2200; border-color:var(--marigold);}
+.ticket.featured .ticket-cta:hover{background:#E8983F;}
+
+/* ---------- Services ---------- */
+.services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+.service-card{
+  background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:30px 26px;
+  transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.service-card:hover{transform:translateY(-6px); box-shadow:0 20px 40px -24px rgba(14,42,22,0.4); border-color:transparent;}
+.service-icon{width:52px; height:52px; border-radius:14px; background:rgba(46,125,50,0.1); color:var(--forest); display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin-bottom:18px;}
+.service-card h4{font-size:1.1rem; margin-bottom:8px;}
+.service-card p{font-size:0.9rem; color:var(--ink-soft);}
+
+/* ---------- Gallery ---------- */
+.gallery-filters{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:40px;}
+.gfilter{padding:9px 18px; border-radius:100px; font-size:0.84rem; font-weight:700; border:1.5px solid var(--line); color:var(--ink-soft); transition:all .2s ease;}
+.gfilter.active, .gfilter:hover{background:var(--forest); color:#fff; border-color:var(--forest);}
+.masonry{columns:4 220px; column-gap:16px;}
+.gitem{break-inside:avoid; margin-bottom:16px; border-radius:16px; overflow:hidden; position:relative; cursor:pointer; box-shadow:0 10px 26px -18px rgba(14,42,22,0.4);}
+.gitem .swatch{width:100%; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.92); position:relative; transition:transform .4s ease;}
+.gitem:hover .swatch{transform:scale(1.06);}
+.gitem .swatch i{font-size:1.8rem; opacity:0.85;}
+.gitem .glabel{position:absolute; bottom:0; left:0; right:0; padding:14px; background:linear-gradient(0deg, rgba(0,0,0,0.55), transparent); color:#fff; font-size:0.8rem; font-weight:700; opacity:0; transition:opacity .3s ease;}
+.gitem:hover .glabel{opacity:1;}
+
+/* ---------- Testimonials ---------- */
+.testi-track{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+.testi-card{background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:30px 28px; position:relative;}
+.testi-card .quote-mark{position:absolute; top:20px; right:26px; font-family:'Fraunces',serif; font-size:3rem; color:rgba(46,125,50,0.14); line-height:1;}
+.testi-stars{color:var(--marigold); font-size:0.9rem; margin-bottom:14px;}
+.testi-card p.text{font-size:0.95rem; color:var(--ink); margin-bottom:20px; font-style:italic;}
+.testi-person{display:flex; align-items:center; gap:12px;}
+.avatar{width:44px; height:44px; border-radius:50%; background:linear-gradient(140deg, var(--sage), var(--forest)); display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Fraunces',serif; font-weight:600;}
+.testi-person b{display:block; font-size:0.92rem;}
+.testi-person span{font-size:0.78rem; color:var(--ink-soft);}
+
+/* ---------- FAQ ---------- */
+.faq-list{max-width:760px; margin:0 auto;}
+.faq-item{border-bottom:1px solid var(--line);}
+.faq-q{width:100%; display:flex; justify-content:space-between; align-items:center; padding:22px 4px; text-align:left; font-family:'Fraunces',serif; font-size:1.08rem; color:var(--deep);}
+.faq-q i{transition:transform .3s ease; color:var(--forest); flex-shrink:0; margin-left:16px;}
+.faq-item.open .faq-q i{transform:rotate(135deg);}
+.faq-a{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+.faq-a p{padding:0 4px 22px; color:var(--ink-soft); font-size:0.94rem; max-width:640px;}
+
+/* ---------- Contact ---------- */
+.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:50px;}
+.contact-info-item{display:flex; gap:16px; align-items:flex-start; margin-bottom:26px;}
+.contact-info-item i{width:46px; height:46px; border-radius:13px; background:rgba(46,125,50,0.1); color:var(--forest); display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;}
+.contact-info-item b{display:block; margin-bottom:3px;}
+.contact-info-item span, .contact-info-item a{font-size:0.9rem; color:var(--ink-soft);}
+.map-placeholder{
+  margin-top:10px; height:220px; border-radius:18px; border:1px dashed var(--line);
+  background:
+    linear-gradient(135deg, rgba(46,125,50,0.06), rgba(255,183,77,0.06)),
+    repeating-linear-gradient(45deg, rgba(46,125,50,0.04) 0 12px, transparent 12px 24px);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:var(--ink-soft);
+}
+.map-placeholder i{font-size:1.8rem; color:var(--forest);}
+.map-placeholder span{font-size:0.82rem; font-weight:600;}
+.social-row{display:flex; gap:12px; margin-top:24px;}
+.social-row a{width:42px; height:42px; border-radius:50%; border:1.5px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--forest); transition:all .2s ease;}
+.social-row a:hover{background:var(--forest); color:#fff; border-color:var(--forest);}
+.contact-form{background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:34px;}
+.field{margin-bottom:18px;}
+.field label{display:block; font-size:0.82rem; font-weight:700; margin-bottom:7px; color:var(--ink);}
+.field input, .field select, .field textarea{
+  width:100%; padding:13px 15px; border-radius:12px; border:1.5px solid var(--line); background:#fff;
+  font-size:0.92rem; color:var(--ink); transition:border-color .2s ease;
+}
+.field input:focus, .field select:focus, .field textarea:focus{outline:none; border-color:var(--forest);}
+.field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+
+/* ---------- CTA band ---------- */
+.cta-band{
+  background:linear-gradient(135deg, var(--forest-dark), var(--forest));
+  border-radius:28px; padding:64px 60px; margin:0 32px; max-width:1136px; margin:0 auto;
+  display:flex; justify-content:space-between; align-items:center; gap:30px; color:#fff; position:relative; overflow:hidden;
+}
+.cta-band::after{content:''; position:absolute; right:-60px; top:-60px; width:220px; height:220px; border-radius:50%; background:rgba(255,183,77,0.18);}
+.cta-band h2{color:#fff; font-size:2rem; max-width:460px; position:relative;}
+.cta-band p{color:#D8ECD8; margin-top:10px; position:relative;}
+.cta-band .btn-marigold{position:relative;}
+
+/* ---------- Footer ---------- */
+footer{background:var(--deep); color:#B9CCB9; padding:70px 0 30px;}
+.footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:40px; margin-bottom:50px;}
+.footer-brand .brand{color:#fff;}
+.footer-brand p{margin-top:14px; font-size:0.9rem; max-width:280px;}
+footer h4{color:#fff; font-size:0.9rem; margin-bottom:16px; text-transform:uppercase; letter-spacing:0.06em;}
+footer ul{list-style:none;}
+footer li{margin-bottom:10px; font-size:0.88rem;}
+footer a:hover{color:#fff;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1); padding-top:24px; display:flex; justify-content:space-between; font-size:0.82rem; flex-wrap:wrap; gap:10px;}
+
+/* ---------- Booking Modal ---------- */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(14,42,22,0.55); backdrop-filter:blur(4px);
+  display:none; align-items:center; justify-content:center; z-index:2000; padding:20px;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--paper); border-radius:26px; width:100%; max-width:620px; max-height:88vh; overflow-y:auto;
+  box-shadow:0 40px 80px -20px rgba(0,0,0,0.5); position:relative;
+}
+.modal-head{padding:28px 32px 0;}
+.modal-close{position:absolute; top:22px; right:24px; font-size:1.5rem; color:var(--ink-soft); width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:background .2s ease;}
+.modal-close:hover{background:rgba(0,0,0,0.06);}
+.steps-track{display:flex; gap:8px; padding:0 32px; margin:22px 0 8px;}
+.step-dot{flex:1; height:5px; border-radius:10px; background:var(--line); transition:background .3s ease;}
+.step-dot.done{background:var(--forest);}
+.modal-body{padding:20px 32px 32px;}
+.step-panel{display:none;}
+.step-panel.active{display:block; animation:fadeUp .35s ease;}
+@keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+.option-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px;}
+.option-card{border:1.5px solid var(--line); border-radius:14px; padding:16px; cursor:pointer; transition:all .2s ease; display:flex; align-items:center; gap:12px;}
+.option-card i{font-size:1.3rem; color:var(--forest);}
+.option-card b{font-size:0.88rem;}
+.option-card.selected{border-color:var(--forest); background:rgba(46,125,50,0.07);}
+.pkg-option{border:1.5px solid var(--line); border-radius:14px; padding:16px 18px; margin-bottom:10px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; transition:all .2s ease;}
+.pkg-option.selected{border-color:var(--marigold); background:rgba(255,183,77,0.08);}
+.pkg-option b{display:block; font-size:0.95rem;}
+.pkg-option span{font-size:0.8rem; color:var(--ink-soft);}
+.pkg-option .price{font-family:'JetBrains Mono',monospace; font-weight:600; color:var(--forest-dark);}
+.modal-nav{display:flex; justify-content:space-between; margin-top:26px; gap:12px;}
+.summary-row{display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px dashed var(--line); font-size:0.9rem;}
+.summary-row b{color:var(--deep);}
+.success-panel{text-align:center; padding:20px 10px 10px;}
+.success-icon{width:84px; height:84px; border-radius:50%; background:rgba(102,187,106,0.16); color:var(--forest); display:flex; align-items:center; justify-content:center; font-size:2.6rem; margin:0 auto 22px; animation:pop .5s cubic-bezier(.2,.9,.3,1.4);}
+@keyframes pop{0%{transform:scale(0);} 80%{transform:scale(1.1);} 100%{transform:scale(1);}}
+.ref-code{display:inline-block; margin-top:16px; padding:10px 20px; background:var(--deep); color:#fff; border-radius:100px; font-family:'JetBrains Mono',monospace; font-weight:600; letter-spacing:0.03em;}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed; bottom:26px; right:26px; background:var(--deep); color:#fff; padding:16px 22px; border-radius:14px; display:flex; align-items:center; gap:12px; box-shadow:0 20px 40px -10px rgba(0,0,0,0.4); transform:translateY(120%); transition:transform .4s cubic-bezier(.2,.9,.3,1.2); z-index:3000;}
+.toast.show{transform:translateY(0);}
+.toast i{color:var(--sage); font-size:1.3rem;}
+
+/* ---------- Scroll reveal ---------- */
+.reveal{opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-visual{height:360px; order:-1;}
+  .about-grid{grid-template-columns:1fr;}
+  .packages-grid, .services-grid, .testi-track{grid-template-columns:repeat(2,1fr);}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .cta-band{flex-direction:column; text-align:center; padding:46px 30px;}
+}
+@media (max-width: 680px){
+  .nav-links{position:fixed; top:70px; left:0; right:0; background:var(--cream); flex-direction:column; padding:20px 32px; gap:18px; box-shadow:0 20px 30px -20px rgba(0,0,0,0.2); display:none;}
+  .nav-links.open{display:flex;}
+  .menu-toggle{display:block;}
+  .packages-grid, .services-grid, .testi-track, .footer-grid{grid-template-columns:1fr;}
+  .masonry{columns:2 160px;}
+  .field-row{grid-template-columns:1fr;}
+  .hero{padding:120px 0 70px;}
+  .option-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#home" class="brand"><i class='bx bxs-leaf'></i> Green Haven <span style="color:var(--marigold)">.</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#packages">Packages</a>
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+      <a href="#" class="btn btn-primary" onclick="openBooking(); return false;"><i class='bx bx-calendar-check'></i> Book Now</a>
+    </div>
+    <button class="menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')"><i class='bx bx-menu'></i></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-blob" style="width:340px; height:340px; background:radial-gradient(circle, var(--sage), transparent 70%); top:-80px; left:-100px;"></div>
+  <div class="hero-blob" style="width:260px; height:260px; background:radial-gradient(circle, var(--marigold), transparent 70%); bottom:-60px; right:-60px;"></div>
+  <div class="container hero-inner">
+    <div class="reveal in">
+      <span class="eyebrow"><i class='bx bxs-star'></i> Nairobi's Premier Garden Venue</span>
+      <h1>Where every gathering<br>becomes <em>a memory.</em></h1>
+      <p class="lead">Curated picnic experiences, garden celebrations and corporate escapes — designed down to the last flower petal, twenty minutes from the city.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn btn-primary" onclick="openBooking(); return false;"><i class='bx bx-calendar-check'></i> Book Now</a>
+        <a href="#packages" class="btn btn-ghost"><i class='bx bx-menu-alt-left'></i> View Packages</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>4,300+</b><span>Memories Hosted</span></div>
+        <div class="stat"><b>4.9<i class='bx bxs-star' style="font-size:1rem;color:var(--marigold)"></i></b><span>320 Reviews</span></div>
+        <div class="stat"><b>6</b><span>Acres of Garden</span></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal in">
+      <div class="hero-card card-main">
+        <span class="tag"><i class='bx bxs-camera'></i> This Weekend</span>
+      </div>
+      <div class="hero-card card-badge" style="background:var(--paper);">
+        <span class="stars">★★★★★</span>
+        <div><b>5.0</b></div>
+      </div>
+      <div class="hero-card card-float">
+        <div class="icon"><i class='bx bx-calendar-check'></i></div>
+        <div>
+          <b>Booking Confirmed</b>
+          <span>Mercy · Family Picnic · Aug 22</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="leaf-divider"><svg viewBox="0 0 220 20"><path d="M0 10 Q55 0 110 10 T220 10" stroke="#2E7D32" stroke-width="1.5" fill="none"/></svg></div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container about-grid">
+    <div class="about-visual reveal">
+      <div class="about-panel panel-a"></div>
+      <div class="about-panel panel-b"><div class="big-num">7yrs</div></div>
+    </div>
+    <div class="about-copy reveal">
+      <span class="section-eyebrow">Our Story</span>
+      <h2>Grown from one garden, one guest at a time.</h2>
+      <p>Green Haven began in 2018 as a single acre and a folding table. Today we host proposals, birthdays, baby showers and corporate retreats across six landscaped acres — but the promise hasn't changed: every detail, from the linen to the last string light, is handled so you don't have to.</p>
+      <p>Our mission is simple — give people in Nairobi a place to slow down, gather, and celebrate outdoors without lifting a finger. Our vision is to be East Africa's most trusted name in outdoor experiences.</p>
+      <div class="values">
+        <div class="value-item"><i class='bx bxs-leaf'></i><div><b>Nature First</b><span>Sustainably landscaped, always in bloom</span></div></div>
+        <div class="value-item"><i class='bx bxs-heart'></i><div><b>Personal Touch</b><span>Every setup styled by hand</span></div></div>
+        <div class="value-item"><i class='bx bxs-badge-check'></i><div><b>Reliable</b><span>On time, every time — no exceptions</span></div></div>
+        <div class="value-item"><i class='bx bxs-group'></i><div><b>For Everyone</b><span>From date nights to 200-guest retreats</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="leaf-divider"><svg viewBox="0 0 220 20"><path d="M0 10 Q55 0 110 10 T220 10" stroke="#2E7D32" stroke-width="1.5" fill="none"/></svg></div>
+
+<!-- PACKAGES -->
+<section class="section on-cream-alt" id="packages">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Reservation Tickets</span>
+      <h2>Pick your experience</h2>
+      <p>Every package is a full setup — arrive, celebrate, leave the cleanup to us.</p>
+    </div>
+    <div class="packages-grid" id="packagesGrid"></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">What We Offer</span>
+      <h2>Services built for every occasion</h2>
+    </div>
+    <div class="services-grid" id="servicesGrid"></div>
+  </div>
+</section>
+
+<div class="leaf-divider"><svg viewBox="0 0 220 20"><path d="M0 10 Q55 0 110 10 T220 10" stroke="#2E7D32" stroke-width="1.5" fill="none"/></svg></div>
+
+<!-- GALLERY -->
+<section class="section on-cream-alt" id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Moments We've Hosted</span>
+      <h2>The Garden Gallery</h2>
+      <p>A glimpse from real celebrations across the past year.</p>
+    </div>
+    <div class="gallery-filters" id="galleryFilters"></div>
+    <div class="masonry" id="galleryGrid"></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Kind Words</span>
+      <h2>Loved by hundreds of guests</h2>
+    </div>
+    <div class="testi-track" id="testiGrid"></div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="section-tight">
+  <div class="cta-band reveal">
+    <div>
+      <h2>Ready to plan your gathering?</h2>
+      <p>Submit a booking request in under two minutes — our team responds within 30 minutes.</p>
+    </div>
+    <a href="#" class="btn btn-marigold" onclick="openBooking(); return false;"><i class='bx bx-calendar-check'></i> Start Booking</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">Good to Know</span>
+      <h2>Frequently asked questions</h2>
+    </div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+<div class="leaf-divider"><svg viewBox="0 0 220 20"><path d="M0 10 Q55 0 110 10 T220 10" stroke="#2E7D32" stroke-width="1.5" fill="none"/></svg></div>
+
+<!-- CONTACT -->
+<section class="section on-cream-alt" id="contact">
+  <div class="container contact-grid">
+    <div class="reveal">
+      <span class="section-eyebrow">Get In Touch</span>
+      <h2 style="margin-bottom:24px;">Come see the garden</h2>
+      <div class="contact-info-item"><i class='bx bx-map'></i><div><b>Address</b><span>Karura Ridge Road, off Kiambu Road, Nairobi</span></div></div>
+      <div class="contact-info-item"><i class='bx bx-phone'></i><div><b>Phone</b><br><a href="tel:+254700123456">+254 700 123 456</a></div></div>
+      <div class="contact-info-item"><i class='bx bxl-whatsapp'></i><div><b>WhatsApp</b><br><a href="#">+254 700 123 456</a></div></div>
+      <div class="contact-info-item"><i class='bx bx-envelope'></i><div><b>Email</b><br><a href="mailto:hello@greenhavenpicnics.co.ke">hello@greenhavenpicnics.co.ke</a></div></div>
+      <div class="contact-info-item"><i class='bx bx-time-five'></i><div><b>Hours</b><span>Mon–Fri 9am–6pm · Sat–Sun 8am–7pm</span></div></div>
+      <div class="map-placeholder"><i class='bx bxs-map-pin'></i><span>Interactive Google Map loads here</span></div>
+      <div class="social-row">
+        <a href="#"><i class='bx bxl-instagram'></i></a>
+        <a href="#"><i class='bx bxl-facebook'></i></a>
+        <a href="#"><i class='bx bxl-tiktok'></i></a>
+      </div>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" onsubmit="handleContactSubmit(event)">
+        <div class="field-row">
+          <div class="field"><label>Full Name</label><input type="text" required placeholder="Jane Mwangi"></div>
+          <div class="field"><label>Phone Number</label><input type="tel" required placeholder="07XX XXX XXX"></div>
+        </div>
+        <div class="field"><label>Email</label><input type="email" required placeholder="you@email.com"></div>
+        <div class="field"><label>Subject</label><input type="text" placeholder="e.g. Corporate booking enquiry"></div>
+        <div class="field"><label>Message</label><textarea rows="4" required placeholder="Tell us about your event..."></textarea></div>
+        <button class="btn btn-primary" style="width:100%; justify-content:center;" type="submit"><i class='bx bx-send'></i> Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="brand"><i class='bx bxs-leaf' style="color:var(--marigold)"></i> Green Haven</a>
+        <p>Where every gathering becomes a memory. Nairobi's premier picnic and garden events venue.</p>
+        <div class="social-row" style="margin-top:20px;">
+          <a href="#"><i class='bx bxl-instagram'></i></a>
+          <a href="#"><i class='bx bxl-facebook'></i></a>
+          <a href="#"><i class='bx bxl-tiktok'></i></a>
+        </div>
+      </div>
+      <div><h4>Explore</h4><ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul></div>
+      <div><h4>Events</h4><ul>
+        <li><a href="#packages">Birthdays</a></li>
+        <li><a href="#packages">Proposals</a></li>
+        <li><a href="#packages">Corporate</a></li>
+        <li><a href="#packages">Baby Showers</a></li>
+      </ul></div>
+      <div><h4>Contact</h4><ul>
+        <li>Karura Ridge Road, Nairobi</li>
+        <li>+254 700 123 456</li>
+        <li>hello@greenhavenpicnics.co.ke</li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Green Haven Picnic Gardens. All rights reserved.</span>
+      <span>Platform crafted by Adalyn Technologies</span>
+    </div>
+  </div>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingOverlay">
+  <div class="modal">
+    <div class="modal-close" onclick="closeBooking()"><i class='bx bx-x'></i></div>
+    <div class="modal-head">
+      <span class="section-eyebrow">Reserve Your Spot</span>
+      <h3 style="font-size:1.5rem;">Book Your Garden Experience</h3>
+    </div>
+    <div class="steps-track" id="stepsTrack"></div>
+    <div class="modal-body">
+
+      <div class="step-panel active" data-step="1">
+        <h4 style="margin-bottom:14px; font-size:1.05rem;">What are you celebrating?</h4>
+        <div class="option-grid" id="eventTypeGrid"></div>
+        <div class="modal-nav">
+          <span></span>
+          <button class="btn btn-primary" onclick="goStep(2)">Continue <i class='bx bx-right-arrow-alt'></i></button>
+        </div>
+      </div>
+
+      <div class="step-panel" data-step="2">
+        <h4 style="margin-bottom:14px; font-size:1.05rem;">Choose a package</h4>
+        <div id="pkgOptionList"></div>
+        <div class="modal-nav">
+          <button class="btn btn-ghost" onclick="goStep(1)"><i class='bx bx-left-arrow-alt'></i> Back</button>
+          <button class="btn btn-primary" onclick="goStep(3)">Continue <i class='bx bx-right-arrow-alt'></i></button>
+        </div>
+      </div>
+
+      <div class="step-panel" data-step="3">
+        <h4 style="margin-bottom:14px; font-size:1.05rem;">Date, time & guests</h4>
+        <div class="field-row">
+          <div class="field"><label>Preferred Date</label><input type="date" id="bDate"></div>
+          <div class="field"><label>Preferred Time</label><input type="time" id="bTime" value="14:00"></div>
+        </div>
+        <div class="field"><label>Number of Guests</label><input type="number" id="bGuests" min="1" value="2"></div>
+        <div class="field"><label>Special Requests (optional)</label><textarea rows="3" id="bNotes" placeholder="Allergies, decor requests, surprise proposal, etc."></textarea></div>
+        <div class="modal-nav">
+          <button class="btn btn-ghost" onclick="goStep(2)"><i class='bx bx-left-arrow-alt'></i> Back</button>
+          <button class="btn btn-primary" onclick="goStep(4)">Continue <i class='bx bx-right-arrow-alt'></i></button>
+        </div>
+      </div>
+
+      <div class="step-panel" data-step="4">
+        <h4 style="margin-bottom:14px; font-size:1.05rem;">Your details</h4>
+        <div class="field"><label>Full Name</label><input type="text" id="bName" placeholder="Jane Mwangi"></div>
+        <div class="field-row">
+          <div class="field"><label>Phone Number</label><input type="tel" id="bPhone" placeholder="07XX XXX XXX"></div>
+          <div class="field"><label>Email</label><input type="email" id="bEmail" placeholder="you@email.com"></div>
+        </div>
+        <div style="margin:20px 0; padding:18px; background:var(--cream); border-radius:14px;">
+          <div class="summary-row"><span>Event</span><b id="sumEvent">—</b></div>
+          <div class="summary-row"><span>Package</span><b id="sumPkg">—</b></div>
+          <div class="summary-row"><span>Date & Time</span><b id="sumDate">—</b></div>
+          <div class="summary-row"><span>Guests</span><b id="sumGuests">—</b></div>
+        </div>
+        <label style="display:flex; gap:10px; align-items:flex-start; font-size:0.85rem; color:var(--ink-soft); margin-bottom:20px;">
+          <input type="checkbox" id="bTerms" style="margin-top:3px;"> I agree to the booking terms and cancellation policy.
+        </label>
+        <div class="modal-nav">
+          <button class="btn btn-ghost" onclick="goStep(3)"><i class='bx bx-left-arrow-alt'></i> Back</button>
+          <button class="btn btn-primary" onclick="submitBooking()"><i class='bx bx-check'></i> Submit Booking</button>
+        </div>
+      </div>
+
+      <div class="step-panel" data-step="success">
+        <div class="success-panel">
+          <div class="success-icon"><i class='bx bx-check'></i></div>
+          <h3 style="font-size:1.4rem; margin-bottom:10px;">Booking Request Received!</h3>
+          <p style="color:var(--ink-soft); max-width:400px; margin:0 auto;">We'll contact you within 30 minutes to confirm your reservation. A confirmation has been sent to your email.</p>
+          <div class="ref-code" id="refCode">PG-000000</div>
+          <div style="margin-top:30px;"><button class="btn btn-ghost" onclick="closeBooking()">Done</button></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i class='bx bx-check-circle'></i> <span id="toastMsg">Message sent!</span></div>
+
+<!-- LIGHTBOX -->
+<div class="modal-overlay" id="lightboxOverlay" onclick="if(event.target===this) closeLightbox()">
+  <div style="position:relative; max-width:640px; width:100%;">
+    <div class="modal-close" style="position:absolute; top:-46px; right:0; color:#fff;" onclick="closeLightbox()"><i class='bx bx-x'></i></div>
+    <div id="lightboxSwatch" style="width:100%; height:420px; border-radius:20px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.9); flex-direction:column; gap:10px;">
+      <i class='bx bx-image' style="font-size:2.5rem;"></i>
+      <span id="lightboxLabel" style="font-family:'Fraunces',serif; font-size:1.2rem;"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------------- Data ---------------- */
+const packages = [
+  {id:'romantic', name:'Romantic Escape', event:'Romantic Picnic', price:6500, unit:'per couple', guests:2, icon:'bx-heart', featured:false,
+    desc:'An intimate garden setup for two, styled with soft textiles and fresh blooms.',
+    features:['Private secluded setup','Fresh flower styling','Charcuterie & snack board','Non-alcoholic drinks','Golden-hour photography spot']},
+  {id:'family', name:'Family Fun', event:'Family Picnic', price:12000, unit:'up to 8 guests', guests:8, icon:'bx-home-heart', featured:true,
+    desc:'Shaded tents, BBQ, and lawn games for a relaxed family afternoon outdoors.',
+    features:['Shaded picnic tent','Charcoal BBQ station','Lawn games for kids & adults','Soft drinks for 8','Dedicated host on site']},
+  {id:'birthday', name:'Bloom Birthday', event:'Birthday Party', price:15000, unit:'up to 10 guests', guests:10, icon:'bx-cake',featured:false,
+    desc:'Balloon backdrop, birthday centerpiece, and a party playlist ready to go.',
+    features:['Themed balloon backdrop','Birthday centerpiece table','Bluetooth speaker & playlist','Party favors for guests','Cake table styling']},
+  {id:'corporate', name:'Corporate Retreat', event:'Corporate Event', price:35000, unit:'up to 25 guests', guests:25, icon:'bx-briefcase',featured:false,
+    desc:'A full outdoor offsite — catering, presentation gear, and team activities included.',
+    features:['Full-service catering','PA system & microphone','Projector & screen','Team-building activity area','Complimentary Wi-Fi']},
+  {id:'graduation', name:'Graduation Glow', event:'Graduation Party', price:14000, unit:'up to 12 guests', guests:12, icon:'bx-medal',featured:false,
+    desc:'Cap-and-gown photo styling with a celebratory spread for the whole crew.',
+    features:['Photo backdrop & props','Grad cap centerpiece','Snack & drinks spread','Bluetooth speaker','Seating for 12']},
+  {id:'proposal', name:'The Proposal', event:'Proposal Setup', price:18000, unit:'per couple', guests:2, icon:'bx-diamond',featured:false,
+    desc:'Petals, candles, and a hidden photographer to capture the moment.',
+    features:['Petal-lined pathway & arch','Candlelight styling','Hidden photographer (1 hr)','Champagne glasses (non-alcoholic option)','Ring box presentation table']},
+];
+
+const services = [
+  {icon:'bx-cake', name:'Birthday Parties', desc:'Full styling, cake table and party games for every age.'},
+  {icon:'bx-gift', name:'Baby Showers', desc:'Soft pastel setups designed for mums-to-be and their circle.'},
+  {icon:'bx-briefcase', name:'Corporate Events', desc:'Offsites, retreats and team days with full AV support.'},
+  {icon:'bx-restaurant', name:'Outdoor Dining', desc:'Chef-curated garden dining for intimate or large groups.'},
+  {icon:'bx-camera', name:'Photography', desc:'In-house photographers to capture every setup, candidly.'},
+  {icon:'bx-group', name:'Team Building', desc:'Guided outdoor activities designed for real connection.'},
+  {icon:'bx-diamond', name:'Proposal Setup', desc:'Discreet, romantic setups built around your moment.'},
+  {icon:'bx-medal', name:'Graduation Parties', desc:'Celebrate the milestone with a garden-worthy send-off.'},
+  {icon:'bx-home-heart', name:'Family Picnics', desc:'Shaded, relaxed, and built for every generation.'},
+];
+
+const galleryCats = ['All','Romantic','Family','Birthday','Team Building','Proposals','Night Events','BBQ','Drone Views'];
+const galleryItems = [];
+const catColors = {
+  'Romantic':['#E8983F','#FFB74D'], 'Family':['#2E7D32','#66BB6A'], 'Birthday':['#8E44AD','#C39BD3'],
+  'Team Building':['#1565C0','#64B5F6'], 'Proposals':['#C2185B','#F48FB1'], 'Night Events':['#0E2A16','#1F5A24'],
+  'BBQ':['#BF360C','#FF8A65'], 'Drone Views':['#00695C','#4DB6AC']
+};
+const catIcon = {'Romantic':'bx-heart','Family':'bx-home-heart','Birthday':'bx-cake','Team Building':'bx-group','Proposals':'bx-diamond','Night Events':'bx-moon','BBQ':'bx-restaurant','Drone Views':'bx-map-alt'};
+const heights = [190,240,160,280,210,170,250,200];
+let n=1;
+for(const cat of galleryCats.slice(1)){
+  for(let i=0;i<6;i++){
+    galleryItems.push({id:n, cat, h:heights[(n+i)%heights.length], label:`${cat} — Session ${i+1}`});
+    n++;
+  }
+}
+
+const testimonials = [
+  {name:'Jane Mwangi', event:'Birthday Party', rating:5, text:'The team turned my backyard-in-the-city dream into reality. Every detail was perfect, down to the fairy lights.'},
+  {name:'Brian Otieno', event:'Proposal', rating:5, text:'She said yes! The hidden photographer caught everything and the setup was more beautiful than I imagined.'},
+  {name:'Mercy Kariuki', event:'Family Picnic', rating:5, text:'Our kids still talk about the lawn games. Booking was so easy and the team was on time to the minute.'},
+  {name:'David Kimani', event:'Corporate Retreat', rating:4, text:'Great for our 20-person offsite — the projector and Wi-Fi worked flawlessly outdoors, which surprised everyone.'},
+  {name:'Amina Hassan', event:'Baby Shower', rating:5, text:'Pastel and dreamy, exactly what we asked for. Guests are still asking who did the styling.'},
+  {name:'Peter Njoroge', event:'Graduation Party', rating:5, text:'Smooth from booking to breakdown. The photo backdrop was a huge hit with the whole family.'},
+];
+
+const faqs = [
+  {q:'Can I bring my own food?', a:'Yes — you are welcome to bring your own food and drinks, or upgrade to one of our catering add-ons. Just let us know in the special requests field when booking.'},
+  {q:'Can I reschedule my booking?', a:'Absolutely. Reschedule requests made at least 48 hours before your event date are accommodated at no extra charge, subject to availability.'},
+  {q:'Is parking available on site?', a:'Yes, we have free secure parking for up to 40 vehicles, with an attendant on duty during all events.'},
+  {q:'Can I bring my own decorations?', a:'Yes, you are free to bring additional decor. Our styling team is also happy to incorporate your pieces into the setup at no extra cost.'},
+  {q:'Can I pay a deposit to secure my date?', a:'Yes — a 30% deposit secures your date and package, with the balance due on the day of your event via M-Pesa or cash.'},
+  {q:'What happens if it rains?', a:'Select packages include a covered garden pavilion as backup, and we offer free rescheduling for weather-related changes.'},
+];
+
+/* ---------------- Render: Packages ---------------- */
+const packagesGrid = document.getElementById('packagesGrid');
+packagesGrid.innerHTML = packages.map(p => `
+  <div class="ticket ${p.featured?'featured':''} reveal">
+    <div class="ticket-head">
+      <div class="stamp">${p.featured?'Most<br>Loved':'Garden<br>Pass'}</div>
+      <div class="event-type">${p.event}</div>
+      <h3>${p.name}</h3>
+      <div class="ticket-price">KES ${p.price.toLocaleString()} <span>${p.unit}</span></div>
+    </div>
+    <div class="ticket-perf"></div>
+    <div class="ticket-body">
+      <p class="desc">${p.desc}</p>
+      <ul>${p.features.map(f=>`<li><i class='bx bx-check-circle'></i> ${f}</li>`).join('')}</ul>
+      <div class="ticket-meta">
+        <span><i class='bx bx-group'></i> ${p.unit.includes('guest')?p.unit:'Up to '+p.guests}</span>
+        <span><i class='bx bx-time'></i> 3–4 hrs</span>
+      </div>
+      <button class="ticket-cta" onclick="openBooking('${p.id}')">Book This Package</button>
+    </div>
+  </div>
+`).join('');
+
+/* ---------------- Render: Services ---------------- */
+document.getElementById('servicesGrid').innerHTML = services.map(s => `
+  <div class="service-card reveal">
+    <div class="service-icon"><i class='bx ${s.icon}'></i></div>
+    <h4>${s.name}</h4>
+    <p>${s.desc}</p>
+  </div>
+`).join('');
+
+/* ---------------- Render: Gallery ---------------- */
+const galleryFilters = document.getElementById('galleryFilters');
+galleryFilters.innerHTML = galleryCats.map((c,i)=>`<button class="gfilter ${i===0?'active':''}" data-cat="${c}" onclick="filterGallery('${c}', this)">${c}</button>`).join('');
+
+function renderGallery(filter){
+  const grid = document.getElementById('galleryGrid');
+  const items = filter==='All' ? galleryItems : galleryItems.filter(g=>g.cat===filter);
+  grid.innerHTML = items.map(g => {
+    const [c1,c2] = catColors[g.cat];
+    return `<div class="gitem" onclick="openLightbox('${g.label}','${c1}','${c2}','${catIcon[g.cat]}')">
+      <div class="swatch" style="height:${g.h}px; background:linear-gradient(150deg, ${c1}, ${c2});">
+        <i class='bx ${catIcon[g.cat]}'></i>
+      </div>
+      <div class="glabel">${g.label}</div>
+    </div>`;
+  }).join('');
+}
+function filterGallery(cat, el){
+  document.querySelectorAll('.gfilter').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderGallery(cat);
+}
+renderGallery('All');
+
+function openLightbox(label,c1,c2,icon){
+  document.getElementById('lightboxSwatch').style.background = `linear-gradient(150deg, ${c1}, ${c2})`;
+  document.getElementById('lightboxSwatch').innerHTML = `<i class='bx ${icon}' style="font-size:2.5rem;"></i><span style="font-family:'Fraunces',serif;font-size:1.2rem;">${label}</span>`;
+  document.getElementById('lightboxOverlay').classList.add('open');
+}
+function closeLightbox(){ document.getElementById('lightboxOverlay').classList.remove('open'); }
+
+/* ---------------- Render: Testimonials ---------------- */
+document.getElementById('testiGrid').innerHTML = testimonials.map(t => `
+  <div class="testi-card reveal">
+    <span class="quote-mark">"</span>
+    <div class="testi-stars">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</div>
+    <p class="text">"${t.text}"</p>
+    <div class="testi-person">
+      <div class="avatar">${t.name.charAt(0)}</div>
+      <div><b>${t.name}</b><span>${t.event}</span></div>
+    </div>
+  </div>
+`).join('');
+
+/* ---------------- Render: FAQ ---------------- */
+document.getElementById('faqList').innerHTML = faqs.map((f,i) => `
+  <div class="faq-item" id="faq-${i}">
+    <button class="faq-q" onclick="toggleFaq(${i})">${f.q} <i class='bx bx-plus'></i></button>
+    <div class="faq-a"><p>${f.a}</p></div>
+  </div>
+`).join('');
+function toggleFaq(i){
+  const item = document.getElementById('faq-'+i);
+  const a = item.querySelector('.faq-a');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(el=>{el.classList.remove('open'); el.querySelector('.faq-a').style.maxHeight=null;});
+  if(!isOpen){ item.classList.add('open'); a.style.maxHeight = a.scrollHeight+'px'; }
+}
+
+/* ---------------- Booking Modal Logic ---------------- */
+let currentStep = 1;
+let booking = {event:null, eventLabel:null, pkg:null, date:null, time:null, guests:null};
+
+const eventTypeGrid = document.getElementById('eventTypeGrid');
+const uniqueEvents = [...new Map(packages.map(p=>[p.event,p])).values()];
+eventTypeGrid.innerHTML = uniqueEvents.map(p => `
+  <div class="option-card" data-event="${p.event}" onclick="selectEvent('${p.event}', this)">
+    <i class='bx ${p.icon}'></i><b>${p.event}</b>
+  </div>
+`).join('');
+
+function selectEvent(ev, el){
+  booking.event = ev; booking.eventLabel = ev;
+  document.querySelectorAll('#eventTypeGrid .option-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  renderPkgOptions();
+}
+function renderPkgOptions(){
+  const list = document.getElementById('pkgOptionList');
+  const filtered = booking.event ? packages.filter(p=>p.event===booking.event) : packages;
+  list.innerHTML = filtered.map(p => `
+    <div class="pkg-option ${booking.pkg===p.id?'selected':''}" data-pkg="${p.id}" onclick="selectPkg('${p.id}', this)">
+      <div><b>${p.name}</b><span>${p.unit}</span></div>
+      <div class="price">KES ${p.price.toLocaleString()}</div>
+    </div>
+  `).join('');
+}
+function selectPkg(id, el){
+  booking.pkg = id;
+  document.querySelectorAll('.pkg-option').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function openBooking(pkgId){
+  document.getElementById('bookingOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  if(pkgId){
+    const p = packages.find(x=>x.id===pkgId);
+    if(p){
+      booking.event = p.event; booking.pkg = p.id;
+      document.querySelectorAll('#eventTypeGrid .option-card').forEach(c=>c.classList.toggle('selected', c.dataset.event===p.event));
+      renderPkgOptions();
+    }
+  }
+  goStep(1);
+}
+function closeBooking(){
+  document.getElementById('bookingOverlay').classList.remove('open');
+  document.body.style.overflow='';
+  setTimeout(()=>{ currentStep=1; booking={event:null,eventLabel:null,pkg:null,date:null,time:null,guests:null}; renderSteps(); showStep(1); document.querySelectorAll('.option-card,.pkg-option').forEach(c=>c.classList.remove('selected')); document.getElementById('pkgOptionList').innerHTML=''; }, 300);
+}
+function renderSteps(){
+  const track = document.getElementById('stepsTrack');
+  track.innerHTML = [1,2,3,4].map(s=>`<div class="step-dot ${s<=currentStep?'done':''}"></div>`).join('');
+}
+function showStep(step){
+  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`.step-panel[data-step="${step}"]`).classList.add('active');
+}
+function goStep(step){
+  if(step===2 && !booking.event){ shakeAndToast('Please select an event type first.'); return; }
+  if(step===3 && !booking.pkg){ shakeAndToast('Please select a package.'); return; }
+  if(step===4){
+    booking.date = document.getElementById('bDate').value;
+    booking.time = document.getElementById('bTime').value;
+    booking.guests = document.getElementById('bGuests').value;
+    if(!booking.date){ shakeAndToast('Please choose a preferred date.'); return; }
+    updateSummary();
+  }
+  currentStep = step;
+  renderSteps();
+  showStep(step);
+}
+function updateSummary(){
+  const p = packages.find(x=>x.id===booking.pkg);
+  document.getElementById('sumEvent').textContent = booking.event || '—';
+  document.getElementById('sumPkg').textContent = p ? p.name+' (KES '+p.price.toLocaleString()+')' : '—';
+  document.getElementById('sumDate').textContent = (booking.date||'—') + ' · ' + (booking.time||'');
+  document.getElementById('sumGuests').textContent = booking.guests || '—';
+}
+function submitBooking(){
+  const name = document.getElementById('bName').value.trim();
+  const phone = document.getElementById('bPhone').value.trim();
+  const terms = document.getElementById('bTerms').checked;
+  if(!name || !phone){ shakeAndToast('Please add your name and phone number.'); return; }
+  if(!terms){ shakeAndToast('Please agree to the booking terms.'); return; }
+  const ref = 'PG-' + Math.random().toString(36).substring(2,8).toUpperCase();
+  document.getElementById('refCode').textContent = ref;
+  showStep('success');
+  document.getElementById('stepsTrack').innerHTML = '';
+}
+function shakeAndToast(msg){ showToast(msg); }
+
+function handleContactSubmit(e){
+  e.preventDefault();
+  showToast('Message sent! We will reply within a few hours.');
+  e.target.reset();
+}
+function showToast(msg){
+  document.getElementById('toastMsg').textContent = msg;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(()=>t.classList.remove('show'), 3200);
+}
+
+/* ---------------- Nav scroll + reveal ---------------- */
+window.addEventListener('scroll', ()=>{
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY>10);
+});
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:0.12});
+revealEls.forEach(el=>io.observe(el));
+document.querySelectorAll('#packagesGrid .reveal, #servicesGrid .reveal, #testiGrid .reveal').forEach(el=>io.observe(el));
+
+document.getElementById('navLinks').addEventListener('click', (e)=>{
+  if(e.target.tagName==='A') document.getElementById('navLinks').classList.remove('open');
+});
+</script>
+</body>
+</html>
