@@ -366,6 +366,32 @@ footer a:hover{color:#fff;}
   .hero{padding:120px 0 70px;}
   .option-grid{grid-template-columns:1fr;}
 }
+
+/* ---------- Small phones (iPhone SE, small Android, 400px and below) ---------- */
+@media (max-width: 400px){
+  .container{padding:0 18px;}
+  h1{font-size:2rem !important;}
+  .hero{padding:100px 0 50px;}
+  .hero-stats{flex-wrap:wrap; gap:16px;}
+  .masonry{columns:1 100%;}
+  .services-grid{grid-template-columns:1fr;}
+  .ticket-price{font-size:1.4rem;}
+  .cta-band h2{font-size:1.5rem;}
+  .modal{max-height:92vh;}
+  .modal-body{padding:16px 18px 24px;}
+  .field-row{grid-template-columns:1fr;}
+}
+
+/* ---------- Touch target sizing for all mobile ---------- */
+@media (max-width: 680px){
+  .btn, .ticket-cta, .gfilter, .faq-q, .menu-toggle, .social-row a{min-height:44px;}
+  a, button{-webkit-tap-highlight-color:rgba(46,125,50,0.15);}
+  .nav-inner{padding:14px 18px;}
+  .hero-card{max-width:90vw;}
+  .card-badge, .card-float{position:relative !important; margin-top:14px;}
+  .hero-visual{display:flex; flex-direction:column; align-items:center;}
+  body{overflow-x:hidden;}
+}
 </style>
 </head>
 <body>
@@ -982,6 +1008,7 @@ function updateSummary(){
 function submitBooking(){
   const name = document.getElementById('bName').value.trim();
   const phone = document.getElementById('bPhone').value.trim();
+  const email = document.getElementById('bEmail').value.trim();
   const terms = document.getElementById('bTerms').checked;
   if(!name || !phone){ shakeAndToast('Please add your name and phone number.'); return; }
   if(!terms){ shakeAndToast('Please agree to the booking terms.'); return; }
@@ -989,6 +1016,17 @@ function submitBooking(){
   document.getElementById('refCode').textContent = ref;
   showStep('success');
   document.getElementById('stepsTrack').innerHTML = '';
+
+  const p = packages.find(x=>x.id===booking.pkg);
+  const msg = 'New Booking Request (' + ref + ')%0A' +
+    'Name: ' + encodeURIComponent(name) + '%0A' +
+    'Phone: ' + encodeURIComponent(phone) + '%0A' +
+    'Email: ' + encodeURIComponent(email||'-') + '%0A' +
+    'Event: ' + encodeURIComponent(booking.event||'-') + '%0A' +
+    'Package: ' + encodeURIComponent(p ? p.name + ' (KES ' + p.price.toLocaleString() + ')' : '-') + '%0A' +
+    'Date: ' + encodeURIComponent(booking.date||'-') + ' ' + encodeURIComponent(booking.time||'') + '%0A' +
+    'Guests: ' + encodeURIComponent(booking.guests||'-');
+  window.open('https://wa.me/254748077609?text=' + msg, '_blank');
 }
 function shakeAndToast(msg){ showToast(msg); }
 
