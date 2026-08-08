@@ -1,0 +1,53 @@
+﻿---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include head.html title="Contact — Green Haven Picnic Gardens" %}
+</head>
+<body>
+{% include nav.html %}
+<section class="page-banner">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Contact</div>
+    <h1>Come see the garden</h1>
+    <p>Reach out and our team will respond within a few hours.</p>
+  </div>
+</section>
+<section class="section on-cream-alt">
+  <div class="container contact-grid">
+    <div class="reveal">
+      <span class="section-eyebrow">Get In Touch</span>
+      <h2 style="margin-bottom:24px;">Visit or reach out</h2>
+      <div class="contact-info-item"><i class='bx bx-map'></i><div><b>Address</b><span>Karura Ridge Road, off Kiambu Road, Nairobi</span></div></div>
+      <div class="contact-info-item"><i class='bx bx-phone'></i><div><b>Phone</b><br><a href="tel:+254700123456">+254 700 123 456</a></div></div>
+      <div class="contact-info-item"><i class='bx bxl-whatsapp'></i><div><b>WhatsApp</b><br><a href="#">+254 700 123 456</a></div></div>
+      <div class="contact-info-item"><i class='bx bx-envelope'></i><div><b>Email</b><br><a href="mailto:hello@greenhavenpicnics.co.ke">hello@greenhavenpicnics.co.ke</a></div></div>
+      <div class="contact-info-item"><i class='bx bx-time-five'></i><div><b>Hours</b><span>Mon–Fri 9am–6pm · Sat–Sun 8am–7pm</span></div></div>
+      <div class="map-placeholder"><i class='bx bxs-map-pin'></i><span>Interactive Google Map loads here</span></div>
+      <div class="social-row">
+        <a href="#"><i class='bx bxl-instagram'></i></a>
+        <a href="#"><i class='bx bxl-facebook'></i></a>
+        <a href="#"><i class='bx bxl-tiktok'></i></a>
+      </div>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" onsubmit="handleContactSubmit(event)">
+        <div class="field-row">
+          <div class="field"><label>Full Name</label><input type="text" required placeholder="Jane Mwangi"></div>
+          <div class="field"><label>Phone Number</label><input type="tel" required placeholder="07XX XXX XXX"></div>
+        </div>
+        <div class="field"><label>Email</label><input type="email" required placeholder="you@email.com"></div>
+        <div class="field"><label>Subject</label><input type="text" placeholder="e.g. Corporate booking enquiry"></div>
+        <div class="field"><label>Message</label><textarea rows="4" required placeholder="Tell us about your event..."></textarea></div>
+        <button class="btn btn-primary" style="width:100%; justify-content:center;" type="submit"><i class='bx bx-send'></i> Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% include footer.html %}
+{% include booking-modal.html %}
+<script src="assets/js/common.js"></script>
+</body>
+</html>

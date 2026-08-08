@@ -1,0 +1,82 @@
+﻿---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include head.html title="Gallery — Green Haven Picnic Gardens" %}
+</head>
+<body>
+{% include nav.html %}
+<section class="page-banner">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Gallery</div>
+    <h1>The Garden Gallery</h1>
+    <p>A glimpse from real celebrations across the past year.</p>
+  </div>
+</section>
+<section class="section on-cream-alt">
+  <div class="container">
+    <div class="gallery-filters" id="galleryFilters"></div>
+    <div class="masonry" id="galleryGrid"></div>
+  </div>
+</section>
+{% include footer.html %}
+{% include booking-modal.html %}
+<div class="modal-overlay" id="lightboxOverlay" onclick="if(event.target===this) closeLightbox()">
+  <div style="position:relative; max-width:640px; width:100%;">
+    <div class="modal-close" style="position:absolute; top:-46px; right:0; color:#fff;" onclick="closeLightbox()"><i class='bx bx-x'></i></div>
+    <div id="lightboxSwatch" style="width:100%; height:420px; border-radius:20px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.9); flex-direction:column; gap:10px;">
+      <i class='bx bx-image' style="font-size:2.5rem;"></i>
+      <span id="lightboxLabel" style="font-family:'Fraunces',serif; font-size:1.2rem;"></span>
+    </div>
+  </div>
+</div>
+<script src="assets/js/common.js"></script>
+<script>
+const galleryCats = ['All','Romantic','Family','Birthday','Team Building','Proposals','Night Events','BBQ','Drone Views'];
+const galleryItems = [];
+const catColors = {
+  'Romantic':['#E8983F','#FFB74D'], 'Family':['#2E7D32','#66BB6A'], 'Birthday':['#8E44AD','#C39BD3'],
+  'Team Building':['#1565C0','#64B5F6'], 'Proposals':['#C2185B','#F48FB1'], 'Night Events':['#0E2A16','#1F5A24'],
+  'BBQ':['#BF360C','#FF8A65'], 'Drone Views':['#00695C','#4DB6AC']
+};
+const catIcon = {'Romantic':'bx-heart','Family':'bx-home-heart','Birthday':'bx-cake','Team Building':'bx-group','Proposals':'bx-diamond','Night Events':'bx-moon','BBQ':'bx-restaurant','Drone Views':'bx-map-alt'};
+const heights = [190,240,160,280,210,170,250,200];
+let n=1;
+for(const cat of galleryCats.slice(1)){
+  for(let i=0;i<6;i++){
+    galleryItems.push({id:n, cat, h:heights[(n+i)%heights.length], label:`${cat} — Session ${i+1}`});
+    n++;
+  }
+}
+const galleryFilters = document.getElementById('galleryFilters');
+galleryFilters.innerHTML = galleryCats.map((c,i)=>`<button class="gfilter ${i===0?'active':''}" data-cat="${c}" onclick="filterGallery('${c}', this)">${c}</button>`).join('');
+function renderGallery(filter){
+  const grid = document.getElementById('galleryGrid');
+  const items = filter==='All' ? galleryItems : galleryItems.filter(g=>g.cat===filter);
+  grid.innerHTML = items.map(g => {
+    const [c1,c2] = catColors[g.cat];
+    return `<div class="gitem" onclick="openLightbox('${g.label}','${c1}','${c2}','${catIcon[g.cat]}')">
+      <div class="swatch" style="height:${g.h}px; background:linear-gradient(150deg, ${c1}, ${c2});">
+        <i class='bx ${catIcon[g.cat]}'></i>
+      </div>
+      <div class="glabel">${g.label}</div>
+    </div>`;
+  }).join('');
+}
+function filterGallery(cat, el){
+  document.querySelectorAll('.gfilter').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderGallery(cat);
+}
+renderGallery('All');
+function openLightbox(label,c1,c2,icon){
+  document.getElementById('lightboxSwatch').style.background = `linear-gradient(150deg, ${c1}, ${c2})`;
+  document.getElementById('lightboxSwatch').innerHTML = `<i class='bx ${icon}' style="font-size:2.5rem;"></i><span style="font-family:'Fraunces',serif;font-size:1.2rem;">${label}</span>`;
+  document.getElementById('lightboxOverlay').classList.add('open');
+}
+function closeLightbox(){ document.getElementById('lightboxOverlay').classList.remove('open'); }
+</script>
+</body>
+</html>

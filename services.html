@@ -1,0 +1,53 @@
+﻿---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include head.html title="Services — Green Haven Picnic Gardens" %}
+</head>
+<body>
+{% include nav.html %}
+<section class="page-banner">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Services</div>
+    <h1>Services built for every occasion</h1>
+    <p>From intimate proposals to full corporate offsites, we handle the details.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="services-grid" id="servicesGrid"></div>
+  </div>
+</section>
+{% include footer.html %}
+{% include booking-modal.html %}
+<script src="assets/js/common.js"></script>
+<script>
+const services = [
+  {icon:'bx-cake', name:'Birthday Parties', desc:'Full styling, cake table and party games for every age.'},
+  {icon:'bx-gift', name:'Baby Showers', desc:'Soft pastel setups designed for mums-to-be and their circle.'},
+  {icon:'bx-briefcase', name:'Corporate Events', desc:'Offsites, retreats and team days with full AV support.'},
+  {icon:'bx-restaurant', name:'Outdoor Dining', desc:'Chef-curated garden dining for intimate or large groups.'},
+  {icon:'bx-camera', name:'Photography', desc:'In-house photographers to capture every setup, candidly.'},
+  {icon:'bx-group', name:'Team Building', desc:'Guided outdoor activities designed for real connection.'},
+  {icon:'bx-diamond', name:'Proposal Setup', desc:'Discreet, romantic setups built around your moment.'},
+  {icon:'bx-medal', name:'Graduation Parties', desc:'Celebrate the milestone with a garden-worthy send-off.'},
+  {icon:'bx-home-heart', name:'Family Picnics', desc:'Shaded, relaxed, and built for every generation.'},
+];
+document.getElementById('servicesGrid').innerHTML = services.map(s => `
+  <div class="service-card reveal">
+    <div class="service-icon"><i class='bx ${s.icon}'></i></div>
+    <h4>${s.name}</h4>
+    <p>${s.desc}</p>
+  </div>
+`).join('');
+document.querySelectorAll('#servicesGrid .reveal').forEach(el=>{
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  io.observe(el);
+});
+</script>
+</body>
+</html>

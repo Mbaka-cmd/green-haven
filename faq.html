@@ -1,0 +1,50 @@
+﻿---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include head.html title="FAQ — Green Haven Picnic Gardens" %}
+</head>
+<body>
+{% include nav.html %}
+<section class="page-banner">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / FAQ</div>
+    <h1>Frequently asked questions</h1>
+    <p>Everything you need to know before booking.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+{% include footer.html %}
+{% include booking-modal.html %}
+<script src="assets/js/common.js"></script>
+<script>
+const faqs = [
+  {q:'Can I bring my own food?', a:'Yes — you are welcome to bring your own food and drinks, or upgrade to one of our catering add-ons. Just let us know in the special requests field when booking.'},
+  {q:'Can I reschedule my booking?', a:'Absolutely. Reschedule requests made at least 48 hours before your event date are accommodated at no extra charge, subject to availability.'},
+  {q:'Is parking available on site?', a:'Yes, we have free secure parking for up to 40 vehicles, with an attendant on duty during all events.'},
+  {q:'Can I bring my own decorations?', a:'Yes, you are free to bring additional decor. Our styling team is also happy to incorporate your pieces into the setup at no extra cost.'},
+  {q:'Can I pay a deposit to secure my date?', a:'Yes — a 30% deposit secures your date and package, with the balance due on the day of your event via M-Pesa or cash.'},
+  {q:'What happens if it rains?', a:'Select packages include a covered garden pavilion as backup, and we offer free rescheduling for weather-related changes.'},
+];
+document.getElementById('faqList').innerHTML = faqs.map((f,i) => `
+  <div class="faq-item" id="faq-${i}">
+    <button class="faq-q" onclick="toggleFaq(${i})">${f.q} <i class='bx bx-plus'></i></button>
+    <div class="faq-a"><p>${f.a}</p></div>
+  </div>
+`).join('');
+function toggleFaq(i){
+  const item = document.getElementById('faq-'+i);
+  const a = item.querySelector('.faq-a');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(el=>{el.classList.remove('open'); el.querySelector('.faq-a').style.maxHeight=null;});
+  if(!isOpen){ item.classList.add('open'); a.style.maxHeight = a.scrollHeight+'px'; }
+}
+</script>
+</body>
+</html>

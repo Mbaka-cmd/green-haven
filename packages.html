@@ -1,0 +1,56 @@
+﻿---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include head.html title="Packages — Green Haven Picnic Gardens" %}
+</head>
+<body>
+{% include nav.html %}
+<section class="page-banner">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Packages</div>
+    <h1>Pick your experience</h1>
+    <p>Every package is a full setup — arrive, celebrate, leave the cleanup to us.</p>
+  </div>
+</section>
+<section class="section on-cream-alt">
+  <div class="container">
+    <div class="packages-grid" id="packagesGrid"></div>
+  </div>
+</section>
+{% include footer.html %}
+{% include booking-modal.html %}
+<script src="assets/js/common.js"></script>
+<script>
+const packagesGrid = document.getElementById('packagesGrid');
+packagesGrid.innerHTML = packages.map(p => `
+  <div class="ticket ${p.featured?'featured':''} reveal">
+    <div class="ticket-head">
+      <div class="stamp">${p.featured?'Most<br>Loved':'Garden<br>Pass'}</div>
+      <div class="event-type">${p.event}</div>
+      <h3>${p.name}</h3>
+      <div class="ticket-price">KES ${p.price.toLocaleString()} <span>${p.unit}</span></div>
+    </div>
+    <div class="ticket-perf"></div>
+    <div class="ticket-body">
+      <p class="desc">${p.desc}</p>
+      <ul>${p.features.map(f=>`<li><i class='bx bx-check-circle'></i> ${f}</li>`).join('')}</ul>
+      <div class="ticket-meta">
+        <span><i class='bx bx-group'></i> ${p.unit.includes('guest')?p.unit:'Up to '+p.guests}</span>
+        <span><i class='bx bx-time'></i> 3–4 hrs</span>
+      </div>
+      <button class="ticket-cta" onclick="openBooking('${p.id}')">Book This Package</button>
+    </div>
+  </div>
+`).join('');
+document.querySelectorAll('#packagesGrid .reveal').forEach(el=>{
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  io.observe(el);
+});
+</script>
+</body>
+</html>

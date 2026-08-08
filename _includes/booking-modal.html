@@ -1,0 +1,80 @@
+﻿<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingOverlay">
+  <div class="modal">
+    <div class="modal-close" onclick="closeBooking()"><i class='bx bx-x'></i></div>
+    <div class="modal-head">
+      <span class="section-eyebrow">Reserve Your Spot</span>
+      <h3 style="font-size:1.5rem;">Book Your Garden Experience</h3>
+    </div>
+    <div class="steps-track" id="stepsTrack"></div>
+    <div class="modal-body">
+
+      <div class="step-panel active" data-step="1">
+        <h4 style="margin-bottom:14px; font-size:1.05rem;">What are you celebrating?</h4>
+        <div class="option-grid" id="eventTypeGrid"></div>
+        <div class="modal-nav">
+          <span></span>
+          <button class="btn btn-primary" onclick="goStep(2)">Continue <i class='bx bx-right-arrow-alt'></i></button>
+        </div>
+      </div>
+
+      <div class="step-panel" data-step="2">
+        <h4 style="margin-bottom:14px; font-size:1.05rem;">Choose a package</h4>
+        <div id="pkgOptionList"></div>
+        <div class="modal-nav">
+          <button class="btn btn-ghost" onclick="goStep(1)"><i class='bx bx-left-arrow-alt'></i> Back</button>
+          <button class="btn btn-primary" onclick="goStep(3)">Continue <i class='bx bx-right-arrow-alt'></i></button>
+        </div>
+      </div>
+
+      <div class="step-panel" data-step="3">
+        <h4 style="margin-bottom:14px; font-size:1.05rem;">Date, time & guests</h4>
+        <div class="field-row">
+          <div class="field"><label>Preferred Date</label><input type="date" id="bDate"></div>
+          <div class="field"><label>Preferred Time</label><input type="time" id="bTime" value="14:00"></div>
+        </div>
+        <div class="field"><label>Number of Guests</label><input type="number" id="bGuests" min="1" value="2"></div>
+        <div class="field"><label>Special Requests (optional)</label><textarea rows="3" id="bNotes" placeholder="Allergies, decor requests, surprise proposal, etc."></textarea></div>
+        <div class="modal-nav">
+          <button class="btn btn-ghost" onclick="goStep(2)"><i class='bx bx-left-arrow-alt'></i> Back</button>
+          <button class="btn btn-primary" onclick="goStep(4)">Continue <i class='bx bx-right-arrow-alt'></i></button>
+        </div>
+      </div>
+
+      <div class="step-panel" data-step="4">
+        <h4 style="margin-bottom:14px; font-size:1.05rem;">Your details</h4>
+        <div class="field"><label>Full Name</label><input type="text" id="bName" placeholder="Jane Mwangi"></div>
+        <div class="field-row">
+          <div class="field"><label>Phone Number</label><input type="tel" id="bPhone" placeholder="07XX XXX XXX"></div>
+          <div class="field"><label>Email</label><input type="email" id="bEmail" placeholder="you@email.com"></div>
+        </div>
+        <div style="margin:20px 0; padding:18px; background:var(--cream); border-radius:14px;">
+          <div class="summary-row"><span>Event</span><b id="sumEvent">—</b></div>
+          <div class="summary-row"><span>Package</span><b id="sumPkg">—</b></div>
+          <div class="summary-row"><span>Date & Time</span><b id="sumDate">—</b></div>
+          <div class="summary-row"><span>Guests</span><b id="sumGuests">—</b></div>
+        </div>
+        <label style="display:flex; gap:10px; align-items:flex-start; font-size:0.85rem; color:var(--ink-soft); margin-bottom:20px;">
+          <input type="checkbox" id="bTerms" style="margin-top:3px;"> I agree to the booking terms and cancellation policy.
+        </label>
+        <div class="modal-nav">
+          <button class="btn btn-ghost" onclick="goStep(3)"><i class='bx bx-left-arrow-alt'></i> Back</button>
+          <button class="btn btn-primary" onclick="submitBooking()"><i class='bx bx-check'></i> Submit Booking</button>
+        </div>
+      </div>
+
+      <div class="step-panel" data-step="success">
+        <div class="success-panel">
+          <div class="success-icon"><i class='bx bx-check'></i></div>
+          <h3 style="font-size:1.4rem; margin-bottom:10px;">Booking Request Received!</h3>
+          <p style="color:var(--ink-soft); max-width:400px; margin:0 auto;">We'll contact you within 30 minutes to confirm your reservation. A confirmation has been sent to your email.</p>
+          <div class="ref-code" id="refCode">PG-000000</div>
+          <div style="margin-top:30px;"><button class="btn btn-ghost" onclick="closeBooking()">Done</button></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i class='bx bx-check-circle'></i> <span id="toastMsg">Message sent!</span></div>

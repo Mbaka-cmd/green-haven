@@ -1,0 +1,54 @@
+﻿---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include head.html title="Reviews — Green Haven Picnic Gardens" %}
+</head>
+<body>
+{% include nav.html %}
+<section class="page-banner">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Reviews</div>
+    <h1>Loved by hundreds of guests</h1>
+    <p>Kind words from real celebrations at Green Haven.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="testi-track" id="testiGrid"></div>
+  </div>
+</section>
+{% include footer.html %}
+{% include booking-modal.html %}
+<script src="assets/js/common.js"></script>
+<script>
+const testimonials = [
+  {name:'Jane Mwangi', event:'Birthday Party', rating:5, text:'The team turned my backyard-in-the-city dream into reality. Every detail was perfect, down to the fairy lights.'},
+  {name:'Brian Otieno', event:'Proposal', rating:5, text:'She said yes! The hidden photographer caught everything and the setup was more beautiful than I imagined.'},
+  {name:'Mercy Kariuki', event:'Family Picnic', rating:5, text:'Our kids still talk about the lawn games. Booking was so easy and the team was on time to the minute.'},
+  {name:'David Kimani', event:'Corporate Retreat', rating:4, text:'Great for our 20-person offsite — the projector and Wi-Fi worked flawlessly outdoors, which surprised everyone.'},
+  {name:'Amina Hassan', event:'Baby Shower', rating:5, text:'Pastel and dreamy, exactly what we asked for. Guests are still asking who did the styling.'},
+  {name:'Peter Njoroge', event:'Graduation Party', rating:5, text:'Smooth from booking to breakdown. The photo backdrop was a huge hit with the whole family.'},
+];
+document.getElementById('testiGrid').innerHTML = testimonials.map(t => `
+  <div class="testi-card reveal">
+    <span class="quote-mark">"</span>
+    <div class="testi-stars">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</div>
+    <p class="text">"${t.text}"</p>
+    <div class="testi-person">
+      <div class="avatar">${t.name.charAt(0)}</div>
+      <div><b>${t.name}</b><span>${t.event}</span></div>
+    </div>
+  </div>
+`).join('');
+document.querySelectorAll('#testiGrid .reveal').forEach(el=>{
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  io.observe(el);
+});
+</script>
+</body>
+</html>
